@@ -39,7 +39,7 @@ function createMap(data) {
 
     // Overlay Obj
     const overlayMap = {
-        "Earthquakes": data
+        Earthquakes: data
     };
 
     // Construct Map
@@ -50,6 +50,8 @@ function createMap(data) {
     });
 
     // Layer Control
-    L.control.layers(baseMap, overlayMap, { collapsed: false })
-        .addto(mainMap);
+    L.control.layers(baseMap, overlayMap, {
+        collapsed: false
+      }).addTo(mainMap);
+    
 };
