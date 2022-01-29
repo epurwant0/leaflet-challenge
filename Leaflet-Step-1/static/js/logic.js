@@ -12,6 +12,18 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
 }).addTo(myMap);
 
+// Color Func
+function getColor(d) {
+    return d > 90  ? '#ff0000' :
+           d > 70  ? '#ffa700' :
+           d > 50  ? '#ffb900' :
+           d > 30   ? '#fff400' :
+           d > 10   ? '#a3ff00' :
+           d > -10   ? '#2cba00' :
+                      '#2cba00';
+}
+
+
 // Get Latest Data
 d3.json(queryURL)
     .then(res => { 
@@ -30,7 +42,10 @@ d3.json(queryURL)
 
             // Construct Markers
             let cirMark = L.circle([lat, long], mag, {
-                fillcolor: '#f03'
+                fillColor: getColor(elev),
+                color: 'black',
+                weight: 1,
+                fillOpacity: 0.7
             });
 
             // Add to Map
@@ -39,54 +54,3 @@ d3.json(queryURL)
         };
 
      });
-
-// // FUNCTION: Create Features
-// function createFeat(data) {
-
-//     // FUNCTION: Each Feature
-//     function onEachFeature(feat, layer) {
-//         layer.bindPopup(`<h3>${feat.properties.place}</h3><hr><p>${new Date(feat.properties.time)}</p>`);
-//     };
-
-//     // Create Layers
-//     const earthquakes = L.geoJSON(data, { onEachFeature: onEachFeature });
-
-//     // Construct Map
-//     createMap(earthquakes);
-// };
-
-// function createMap(data) {
-
-//     // Base Layers
-//     const street = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-//         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-//     });
-
-//     const topo = L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
-//         attribution: 'Map data: &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, <a href="http://viewfinderpanoramas.org">SRTM</a> | Map style: &copy; <a href="https://opentopomap.org">OpenTopoMap</a> (<a href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</a>)'
-//     });
-
-//     // BaseMap Obj
-//     const baseMap = {
-//         "Street Map": street,
-//         "Topography Map": topo
-//     };
-
-//     // Overlay Obj
-//     const overlayMap = {
-//         Earthquakes: data
-//     };
-
-//     // Construct Map
-//     const mainMap = L.map("map", {
-//         center: [37.09, -95.71],
-//         zoom: 5,
-//         layers: [street, data]      
-//     });
-
-//     // Layer Control
-//     L.control.layers(baseMap, overlayMap, {
-//         collapsed: false
-//       }).addTo(mainMap);
-    
-// };
