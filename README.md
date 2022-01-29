@@ -1,5 +1,7 @@
 # Leaflet Homework: Visualizing Data with Leaflet
 
+Please click [here](https://epurwant0.github.io/leaflet-challenge/Leaflet-Step-1/) to access the deployed Pages.
+
 ## Background
 
 ![1-Logo](Images/1-Logo.png)
